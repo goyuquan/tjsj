@@ -15,8 +15,6 @@
 
 @section('content')
 
-@include('common.upload')
-
 <!-- MAIN PANEL -->
 <div id="main" role="main">
 
@@ -97,6 +95,7 @@
                             <input type="hidden" name="parent_id">
 
                             <fieldset>
+                            @if (count($categorys) > 0)
                             <div class="row">
                                 <section class="col col-3">
                                     <div id="parent_select" class="dropdown">
@@ -129,6 +128,7 @@
 
                                 </section>
                             </div>
+                            @endif
                             <section>
                                 <label class="input"> <i class="icon-prepend fa fa-font"></i>
                                     <input type="text" class="input-md" name="name" placeholder="分类名称">
