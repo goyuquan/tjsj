@@ -1,24 +1,9 @@
 <nav class="ui menu">
-  <div class="header item">
-      <a class="navbar-brand" href="{{ url('/') }}">
-          Laravel
+      <a class="navbar-brand header item" href="{{ url('/') }}">
+          统计数据  <small>tongjishuju.com</small>
       </a>
-  </div>
   <a href="/articles/" class="active item">文章列表</a>
   <a class="item">Link</a>
-  <div class="ui dropdown item" tabindex="0">
-    Dropdown
-    <i class="dropdown icon"></i>
-    <div class="menu transition hidden" tabindex="-1">
-      <div class="item">Action</div>
-      <div class="item">Another Action</div>
-      <div class="item">Something else here</div>
-      <div class="divider"></div>
-      <div class="item">Separated Link</div>
-      <div class="divider"></div>
-      <div class="item">One more separated link</div>
-    </div>
-  </div>
   <div class="right menu">
     <div class="item">
       <div class="ui action left icon input">
