@@ -99,7 +99,7 @@ class ArticleController extends Controller
         $request->user()->articles()->create([
             'title' => $request->title,
             'thumbnail' => $request->thumbnail,
-            'category' => $request->category,
+            'category_id' => $request->category,
             'content' => $request->content,
             'published_at' => $request->published_at,
         ]);

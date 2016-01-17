@@ -410,8 +410,9 @@ $(function(){
         $(this).addClass("disabled");
     });
 
+    // 分类点击赋值
     $("#type_select ul a:not('.parent-item')").click(function(){
-        $("input[name='category']").val($(this).text());
+        $("input[name='category']").val($(this).attr("name"));
         $("#dLabel").html("<i class='fa fa-gear'></i>   "+$(this).text()+"   <span class='caret'></span>");
     });
 

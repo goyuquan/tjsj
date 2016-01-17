@@ -117,8 +117,8 @@
                                         <a href="/uploads/{{ $article->thumbnail }}"><i class="fa fa-photo fa-2x text-muted text-success"></i></a>
                                     @endif
                                 </td>
-                                <td>{{App\Article::find($article->user_id)->user->name}}</td>
-                                <td class="text-center hidden-xs hidden-sm">{{ $article->category }}</td>
+                                <td>{{$article->user->name}}</td>
+                                <td class="text-center hidden-xs hidden-sm">{{ $article->category->name }}</td>
                                 <td class="text-center hidden-xs hidden-sm">{{ substr($article->published_at,1,10) }}</td>
                                 <td class="hidden-xs hidden-sm">
                                     <div class="btn-group">
