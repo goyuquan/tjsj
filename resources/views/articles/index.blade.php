@@ -21,7 +21,7 @@
                     <div class="content">
                         <a href="/article/{{$article->id}}" class="header">{{ $article->title }}</a>
                         <div class="description">
-                            {{ str_limit($article->content,200) }}
+                            {{ str_limit(strip_tags($article->content),200) }}
                         </div>
                     </div>
                 </div>
