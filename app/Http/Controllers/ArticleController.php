@@ -62,9 +62,10 @@ class ArticleController extends Controller
 
     public function show($id)
     {
+        $categorys = $categoryss = Category::all();
         $article = Article::find($id);
 
-        return view('articles.show',['article'=>$article]);
+        return view('articles.show',['article'=>$article,"categorys" => $categorys,"categoryss" => $categoryss]);
     }
 
 

@@ -6,27 +6,38 @@
 <!-- Create article Form... -->
 
 <!-- Current articles -->
-@if (count($articles) > 0)
+<div class="ui fluid container">
+    <div class="ui stackable grid">
+        <div class="ui eleven wide column">
+            @if (count($articles) > 0)
+            @foreach ($articles as $article)
+            <div class="ui items">
+                <div class="item">
+                    @if($article->thumbnail)
+                    <a class="ui small image">
+                        <img src="{{asset('uploads/'.$article->thumbnail)}}">
+                    </a>
+                    @endif
+                    <div class="content">
+                        <a href="/article/{{$article->id}}" class="header">{{ $article->title }}</a>
+                        <div class="description">
+                            {{ str_limit($article->content,200) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
 
-@if (Auth::check())
-<a href="/article/create">create</a>
-@endif
+            <p>
+                {!! $articles->links() !!}
+            </p>
+            @endif
+        </div>
 
+        <div class="ui five width column">
 
-@foreach ($articles as $article)
-<div>
-    @if($article->thumbnail)
-    <img src="{{asset('uploads/'.$article->thumbnail)}}" alt="" />
-    @endif
-    <a href="/article/{{$article->id}}">{{ $article->title }}</a>
-    <a href="/article/{{$article->id}}/edit">编辑</a>
-    <a href="/article/{{$article->id}}/destroy">DELETE</a>
+        </div>
+    </div>
 </div>
 
-@endforeach
-
-<p>
-    {!! $articles->links() !!}
-</p>
-@endif
 @endsection

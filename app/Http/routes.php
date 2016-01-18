@@ -9,11 +9,9 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::get('/articles/{id?}', 'ArticleController@index');
+    Route::get('/article/{article}', 'ArticleController@show');
+    
     Route::post('/article/fileupload','ArticleController@fileUpload');
-
-    Route::get('/article/{article}', function (App\Article $article) {
-        return view('articles.show',['article'=>$article]);
-    });
 
 
     Route::group(['middleware' => 'auth'], function () {

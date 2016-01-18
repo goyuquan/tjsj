@@ -302,7 +302,7 @@
 
             			</div>
 
-                        <!-- <div class="jarviswidget jarviswidget-color-blue" id="markdown" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
+                        <div class="jarviswidget jarviswidget-color-blue" id="markdown" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
                             <header>
                                 <span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
                                 <h2>文本内容编辑器</h2>
@@ -317,7 +317,7 @@
                                     @endif
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
 
 
                     </article>

@@ -107,13 +107,13 @@
                                             @foreach ( $categorys as $category )
                                                 @if ( $category->parent_id === 1 )
                                                     <li>
-                                                        <a href="javascript:void(0);" name="{{$category->id}}"><i class="fa fa-circle-o">   </i>{{ $category->name }}</a>
+                                                        <a href="javascript:void(0);" class="item" name="{{$category->id}}"><i class="fa fa-circle-o">   </i>{{ $category->name }}</a>
 
                                                         @foreach ( $categoryss as $category_ )
                                                             @if ($category_->parent_id === $category->id)
                                                                 <li>
-                                                                    <a href="javascript:void(0);" name="{{$category_->id}}">
-                                                                        <i class="fa fa-circle-o">  </i>{{ $category->name }} <i class="fa fa-chevron-circle-right"></i> {{$category_->name}}
+                                                                    <a href="javascript:void(0);" class="item" name="{{$category_->id}}">
+                                                                        {{ $category->name }} <i class="fa fa-chevron-circle-right"></i> {{$category_->name}}
                                                                     </a>
                                                                 </li>
                                                             @endif
