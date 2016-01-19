@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
-@section('title',$article->title)
+@section('title',$article->title.'_')
 
 @section('content')
-
 <div class="ui fluid container">
 
     <h1 class="ui header"> {{$article->title}}
@@ -25,25 +24,25 @@
         </div>
         <div class="five wide column">
 
-            <div class="ui card">
-                <div class="content">
-                    <div class="header">分类目录</div>
-                    <div class="meta">好友</div>
-                    <div class="ui list">
-                        @foreach ( $categorys as $category )
-                            @if ( $category->parent_id === 1 )
-                                <a href="javascript:void(0);" class="item" name="{{$category->id}}">{{ $category->name }}</a>
-                                @foreach ( $categoryss as $category_ )
-                                    @if ($category_->parent_id === $category->id)
-                                            <a href="javascript:void(0);" name="{{$category_->id}}">
-                                                <i class="fa fa-circle-o">  </i>{{ $category->name }} <i class="fa fa-chevron-circle-right"></i> {{$category_->name}}
-                                            </a>
-                                    @endif
-                                @endforeach
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
+            <div class="ui divided items">
+                <div class="header">分类目录</div>
+                <div class="meta">subtitle</div>
+                    @foreach ( $categorys as $category )
+                        @if ( $category->parent_id === 1 )
+                        <div class="item">
+                            <a href="/articles/category/{{$category->id}}/page/" class="item">{{ $category->name }}</a>
+                        </div>
+                            @foreach ( $categoryss as $category_ )
+                                @if ($category_->parent_id === $category->id)
+                                <div class="item">
+                                    <a href="/articles/category/{{$category_->id}}/page/">
+                                        <i class="fa fa-circle-o">  </i>{{ $category->name }} <i class="fa fa-chevron-circle-right"></i> {{$category_->name}}
+                                    </a>
+                                </div>
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
             </div>
         </div>
     </div>

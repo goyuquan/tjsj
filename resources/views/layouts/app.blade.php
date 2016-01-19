@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title')_sitetitle</title>
+    <title>@yield('title')统计数据</title>
 
     <link rel="stylesheet" href="/css/bootstrap-pagination.min.css">
     <link rel="stylesheet" href="/css/semantic.min.css">

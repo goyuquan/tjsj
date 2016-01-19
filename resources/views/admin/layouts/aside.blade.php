@@ -43,6 +43,9 @@
             <li id="aside_article_add">
                 <a href="/admin/article/create">新建文章</a>
             </li>
+            <li id="aside_article_display">
+                <a href="/admin/articles/display">文章展示页面列表</a>
+            </li>
         </ul>
     </li>
     <li id="aside_category">

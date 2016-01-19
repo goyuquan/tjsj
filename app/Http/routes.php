@@ -29,6 +29,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/admin/categorys/', 'CategoryController@index');
         Route::post('/admin/category/store', 'CategoryController@store');
 
+        Route::get('/admin/articles/display', 'DisplayController@index');
+        Route::post('/admin/articles/display/store', 'DisplayController@store');
+
         Route::get('/admin/users/', 'UserController@index');
 
     });
