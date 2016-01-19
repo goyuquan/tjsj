@@ -19,7 +19,7 @@
                     </a>
                     @endif
                     <div class="content">
-                        <a href="/article/{{$article->id}}" class="header">{{ $article->title }}</a>
+                        <a href="/article/{{$article->id}}" class="ui blue header">{{ $article->title }}</a>
                         <div class="description">
                             {{ str_limit(strip_tags($article->content),200) }}
                         </div>
@@ -34,7 +34,27 @@
             @endif
         </div>
 
-        <div class="ui five width column">
+        <div class="ui five wide column">
+            <div class="ui card">
+                <div class="content">
+                    <div class="header">分类目录</div>
+                    <div class="meta">好友</div>
+                    <div class="ui list">
+                        @foreach ( $categorys as $category )
+                            @if ( $category->parent_id === 1 )
+                                <a href="javascript:void(0);" class="item" name="{{$category->id}}">{{ $category->name }}</a>
+                                @foreach ( $categoryss as $category_ )
+                                    @if ($category_->parent_id === $category->id)
+                                            <a href="javascript:void(0);" name="{{$category_->id}}">
+                                                <i class="fa fa-circle-o">  </i>{{ $category->name }} <i class="fa fa-chevron-circle-right"></i> {{$category_->name}}
+                                            </a>
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>

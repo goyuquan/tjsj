@@ -32,6 +32,7 @@ class ArticleController extends Controller
             'index', 'show',
         ]]);
 
+        $this->categorys = $this->categoryss = Category::all();
         $this->articles = $articles;
     }
 
@@ -39,7 +40,7 @@ class ArticleController extends Controller
     public function index($id = 1)
     {
         return view('articles.index', [
-            'articles' => $this->articles->for_guest($id)
+            'articles' => $this->articles->for_guest($id),"categorys" => $this->categorys,"categoryss" => $this->categoryss
         ]);
     }
 
@@ -62,10 +63,9 @@ class ArticleController extends Controller
 
     public function show($id)
     {
-        $categorys = $categoryss = Category::all();
         $article = Article::find($id);
 
-        return view('articles.show',['article'=>$article,"categorys" => $categorys,"categoryss" => $categoryss]);
+        return view('articles.show',['article'=>$article,"categorys" => $this->categorys,"categoryss" => $this->categoryss]);
     }
 
 
