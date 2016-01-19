@@ -39,8 +39,17 @@ class ArticleController extends Controller
 
     public function index($id = 1)
     {
+        // return "index";
         return view('articles.index', [
             'articles' => $this->articles->for_guest($id),"categorys" => $this->categorys,"categoryss" => $this->categoryss
+        ]);
+    }
+
+    public function category($category,$pages = 1)
+    {
+        // return "category";
+        return view('articles.index', [
+            'articles' => $this->articles->category($category,$pages),"categorys" => $this->categorys,"categoryss" => $this->categoryss
         ]);
     }
 

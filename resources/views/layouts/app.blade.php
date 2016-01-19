@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="/css/bootstrap-pagination.min.css">
     <link rel="stylesheet" href="/css/semantic.min.css">
+    <link rel="stylesheet" href="/css/common.css">
 
 </head>
 <body>

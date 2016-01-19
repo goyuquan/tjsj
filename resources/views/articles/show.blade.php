@@ -13,12 +13,14 @@
     <div class="ui stackable grid">
         <div class="eleven wide column">
                 <h4 class="ui horizontal divider header"><i class="tag icon"></i> Description </h4>
-                <div class="ui left floated image" style="width:300px;height:300px;background:#ccc;">
-                    广告位
+                <div class="ui piled segment">
+                    <div class="ui left floated image" style="width:300px;height:300px;background:#ccc;">
+                        广告位
+                    </div>
+                    <p>
+                        <?php echo(html_entity_decode($article->content, ENT_QUOTES, 'UTF-8')); ?>
+                    </p>
                 </div>
-                <p>
-                    <?php echo(html_entity_decode($article->content, ENT_QUOTES, 'UTF-8')); ?>
-                </p>
 
         </div>
         <div class="five wide column">

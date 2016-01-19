@@ -74,23 +74,6 @@
 
                 <!-- Widget ID (each widget will need unique ID)-->
                 <div class="jarviswidget" id="wid-id-1g" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
-                <!-- widget options:
-                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-                data-widget-colorbutton="false"
-                data-widget-editbutton="false"
-                data-widget-togglebutton="false"
-                data-widget-deletebutton="false"
-                data-widget-fullscreenbutton="false"
-                data-widget-custombutton="false"
-                data-widget-collapsed="true"
-                data-widget-sortable="false"
-
-                -->
-                    <header>
-                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                        <h2>新建内容 </h2>
-                    </header>
 
                     <!-- widget div-->
                     <div>
@@ -243,19 +226,6 @@
                         <!-- end widget -->
 
                         <div class="jarviswidget jarviswidget-color-blue" id="summernote" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-collapsed="false" data-widget-sortable="false">
-            				<!-- widget options:
-            				usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-            				data-widget-colorbutton="false"
-            				data-widget-editbutton="false"
-            				data-widget-togglebutton="false"
-            				data-widget-deletebutton="false"
-            				data-widget-fullscreenbutton="false"
-            				data-widget-custombutton="false"
-            				data-widget-collapsed="false"
-            				data-widget-sortable="false"
-
-            				-->
             				<header>
             					<span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
             					<h2>网页内容编辑器</h2>

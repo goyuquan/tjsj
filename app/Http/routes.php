@@ -8,10 +8,11 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     });
 
+
+    Route::get('/articles/category/{category}/page/{pages?}', 'ArticleController@category');
     Route::get('/articles/{id?}', 'ArticleController@index');
     Route::get('/article/{article}', 'ArticleController@show');
-    
-    Route::post('/article/fileupload','ArticleController@fileUpload');
+
 
 
     Route::group(['middleware' => 'auth'], function () {
@@ -23,6 +24,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/admin/article/{id}/edit', 'ArticleController@edit');
         Route::post('/admin/article/{id}/update', 'ArticleController@update');
         Route::get('/admin/article/{id}/destroy', 'ArticleController@destroy');
+        Route::post('/article/fileupload','ArticleController@fileUpload');
 
         Route::get('/admin/categorys/', 'CategoryController@index');
         Route::post('/admin/category/store', 'CategoryController@store');
