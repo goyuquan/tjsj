@@ -438,6 +438,7 @@ $(function(){
         $("#dLabel2").html("<i class='fa fa-gear'></i>   "+$(this).text()+"   <span class='caret'></span>");
     });
 
+    $(".dropdown-menu").parent("li").addClass("dropdown-submenu");//给分类列表父元素加dropdown-submenu类
 
     var $creat_form = $("#edit_form").validate({
 		// Rules for form validation
