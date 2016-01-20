@@ -2,6 +2,18 @@
 
 @section('style')
 
+<style media="screen">
+    #media_body {
+        min-height: 41px;
+    }
+    #wid-id-32 {
+        margin-bottom: 1em;
+    }
+    #wid-id-1g {
+        margin-bottom: 1em;
+    }
+</style>
+
 @endsection
 
 @section('content')
@@ -254,6 +266,74 @@
                         </div>
                         <!-- end widget -->
 
+
+                        <div class="jarviswidget well transparent" id="wid-id-32" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                            <div>
+                                <!-- widget content -->
+                                <div id="media_body" class="widget-body">
+                                    <div class="panel-group smart-accordion-default" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
+                                                    <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                    <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                    插入媒体、表格、图表 </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <div class="jarviswidget well" id="wid-id-1">
+
+                                                        <div>
+                                                            <div class="widget-body">
+
+                                                                <p>
+                                                                    <button id="edit" class="btn btn-primary" onclick="edit()" type="button">
+                                                                        Edit
+                                                                    </button>
+                                                                    <button id="save" class="btn btn-primary" onclick="save()" type="button">
+                                                                        Save
+                                                                    </button>
+                                                                </p>
+                                                                <p></p>
+                                                                <div class="click2edit">
+                                                                    <pre><code class="javascript">var edit = function() { $('.click2edit').summernote() };</code></pre>
+                                                                </div>
+
+                                                                <script>
+                                                                var edit = function() {
+                                                                    $('.click2edit').summernote({
+                                                                        focus : true
+                                                                    });
+                                                                };
+                                                                var save = function() {
+                                                                    $('.click2edit').destroy();
+                                                                };
+                                                                </script>
+
+
+                                                            </div>
+                                                                <!-- end widget content -->
+
+
+                                                                <!-- end widget div -->
+                                                            </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- end widget content -->
+
+                            </div>
+                            <!-- end widget div -->
+
+                        </div>
+
+
+
                         <div class="jarviswidget jarviswidget-color-blue" id="summernote" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-collapsed="false" data-widget-sortable="false">
             				<header>
             					<span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
@@ -321,6 +401,8 @@
 
                     </article>
                     <!-- END COL -->
+
+
 
         </div>
 
@@ -462,7 +544,6 @@ $(function(){
             return false;
         }
     });
-
 
 });
 </script>
