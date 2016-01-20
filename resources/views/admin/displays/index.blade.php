@@ -77,7 +77,7 @@
 
                     <div class="widget-body no-padding">
 
-                        <form id="display-form" method="POST" action="/admin/display/store" class="smart-form" novalidate="novalidate">
+                        <form id="display-form" method="POST" action="/admin/articles/display/store" class="smart-form" novalidate="novalidate">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="parent_id">
 
@@ -94,18 +94,20 @@
                                             @foreach ( $displays as $display )
                                                 @if ( $display->parent_id === 1 )
                                                     <li>
-                                                        <a href="javascript:void(0);" class="item" name="{{$display->id}}"><i class="fa fa-circle-o">   </i>{{ $display->name }}</a>
-
-                                                        @foreach ( $displayss as $display_ )
-                                                            @if ($display_->parent_id === $display->id)
-                                                                <li>
-                                                                    <a href="javascript:void(0);" class="item" name="{{$display_->id}}">
-                                                                        {{ $display->name }} <i class="fa fa-chevron-circle-right"></i> {{$display_->name}}
-                                                                    </a>
-                                                                </li>
-                                                            @endif
-                                                        @endforeach
-
+                                                        <a href="javascript:void(0);" class="item" name="{{$display->id}}">{{ $display->name }}</a>
+                                                        @if ( !App\Display::where('parent_id',$display->id)->get()->isEmpty() )
+                                                            <ul class="dropdown-menu">
+                                                            @foreach ( $displayss as $display_ )
+                                                                @if ($display_->parent_id === $display->id)
+                                                                    <li>
+                                                                        <a href="javascript:void(0);" class="item" name="{{$display_->id}}">
+                                                                            {{$display_->name}}
+                                                                        </a>
+                                                                    </li>
+                                                                @endif
+                                                            @endforeach
+                                                            </ul>
+                                                        @endif
                                                     </li>
                                                 @endif
                                             @endforeach

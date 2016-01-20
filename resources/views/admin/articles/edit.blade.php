@@ -1,11 +1,7 @@
 @extends('admin.layouts.admin')
 
 @section('style')
-<style>
-    #type_select a{
-        padding: 0.5em 1em;
-    }
-</style>
+
 @endsection
 
 @section('content')
@@ -73,24 +69,7 @@
             <article class="col-sm-12 col-md-12 col-lg-12">
 
                 <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-786" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
-                <!-- widget options:
-                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-                data-widget-colorbutton="false"
-                data-widget-editbutton="false"
-                data-widget-togglebutton="false"
-                data-widget-deletebutton="false"
-                data-widget-fullscreenbutton="false"
-                data-widget-custombutton="false"
-                data-widget-collapsed="true"
-                data-widget-sortable="false"
-
-                -->
-                    <header>
-                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                        <h2>编辑内容 </h2>
-                    </header>
+                <div class="jarviswidget" id="wid-id-76" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
 
                     <!-- widget div-->
                     <div>
@@ -100,7 +79,8 @@
                             <form id="edit_form" class="smart-form" novalidate="novalidate" method="POST" action="/admin/article/{{$article->id}}/update" enctype="multipart/form-data" >
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="thumbnail" value="{{ $article->thumbnail }}">
-                                <input type="hidden" name="category" value="{{ $article->category }}">
+                                <input type="hidden" name="category" value="{{ $article->category_id }}">
+                                <input type="hidden" name="display" value="{{ $article->display or " " }}">
                                 <textarea id="input_content" class="hidden" name="content">{{ $article->content }}</textarea>
 
 
@@ -130,48 +110,71 @@
                                                 <div class="col col-1">
                                                     <a data-toggle="modal" href="#myModal" id="upload_bt0" class="btn btn-warning btn-sm"><i class="fa fa-upload"></i>     缩略图</a>
                                                 </div>
-                                                <section class="col col-3">
-                                                    <div id="type_select" class="dropdown">
-                                                        <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary btn-sm" data-target="#" href="javascript:void(0);">
-                                                            <i class="fa fa-gear"></i>      <span id="category_bt"></span>
+                                                <section class="col col-8">
+                                                    <div id="type_select" class="dropdown inline_block">
+                                                        <a id="dLabel" role="button" name="{{App\Category::find($article->category_id)->id}}" data-toggle="dropdown" class="btn btn-primary btn-sm" data-target="#" href="javascript:void(0);">
+                                                            <i class="fa fa-code-fork"></i>      {{ App\Category::find($article->category_id)->name}}
                                                             <span class="caret"></span>
                                                         </a>
                                                         <ul class="dropdown-menu multi-level" role="menu">
-                                                            <li>
-                                                                <a href="javascript:void(0);">类别1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">类别2</a>
-                                                            </li>
-                                                            <li class="dropdown-submenu">
-                                                                <a tabindex="-1" href="javascript:void(0);" class="parent-item">有子类别</a>
-                                                                <ul class="dropdown-menu">
+                                                            @foreach ( $categorys as $category )
+                                                                @if ( $category->parent_id === 1 )
                                                                     <li>
-                                                                        <a tabindex="-1" href="javascript:void(0);">Second level</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0);">Second level</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0);">Second level</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">类别1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">类别1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">类别1</a>
-                                                            </li>
-                                                        </ul>
-                                                        @if ($errors->has('category'))
-                                                        <em for="category" class="invalid">{{ $errors->first('category') }}</em>
-                                                        @endif
-                                                    </div>
+                                                                        <a href="javascript:void(0);" class="item" name="{{$category->id}}">{{ $category->name }}</a>
+                                                                        @if ( !App\Category::where('parent_id',$category->id)->get()->isEmpty() )
+                                                                            <ul class="dropdown-menu">
+                                                                                @foreach ( $categoryss as $category_ )
+                                                                                @if ($category_->parent_id === $category->id)
+                                                                                <li>
+                                                                                    <a href="javascript:void(0);" class="item" name="{{$category_->id}}">
+                                                                                        {{$category_->name}}
+                                                                                    </a>
+                                                                                </li>
+                                                                                @endif
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        @endif
 
+                                                                    </li>
+                                                                @endif
+                                                            @endforeach
+
+                                                        </ul>
+                                                    </div>
+                                                    <div id="display_select" class="dropdown inline_block">
+                                                        <a id="dLabel2" role="button" name="" data-toggle="dropdown" class="btn btn-primary btn-sm" data-target="#" href="javascript:void(0);">
+                                                            <i class="fa fa-code-fork"></i>
+                                                            <?php if ($article->display) {
+                                                                echo App\Display::find( $article->display )->name;
+                                                            } else {
+                                                                echo "选择展示页面";
+                                                            } ?>
+                                                            <span class="caret"></span>
+                                                        </a>
+                                                        <ul class="dropdown-menu multi-level" role="menu">
+                                                            @foreach ( $displays as $display )
+                                                                @if ( $display->parent_id === 1 )
+                                                                    <li>
+                                                                        <a href="javascript:void(0);" class="item" name="{{$display->id}}">{{ $display->name }}</a>
+                                                                        @if ( !App\Display::where('parent_id',$display->id)->get()->isEmpty() )
+                                                                            <ul class="dropdown-menu">
+                                                                            @foreach ( $displayss as $display_ )
+                                                                                @if ($display_->parent_id === $display->id)
+                                                                                    <li>
+                                                                                        <a href="javascript:void(0);" class="item" name="{{$display_->id}}">
+                                                                                            {{$display_->name}}
+                                                                                        </a>
+                                                                                    </li>
+                                                                                @endif
+                                                                            @endforeach
+                                                                            </ul>
+                                                                        @endif
+                                                                    </li>
+                                                                @endif
+                                                            @endforeach
+
+                                                        </ul>
+                                                    </div>
                                                 </section>
                                             </div>
 
@@ -256,19 +259,6 @@
                         <!-- end widget -->
 
                         <div class="jarviswidget jarviswidget-color-blue" id="summernote" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-collapsed="false" data-widget-sortable="false">
-            				<!-- widget options:
-            				usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-            				data-widget-colorbutton="false"
-            				data-widget-editbutton="false"
-            				data-widget-togglebutton="false"
-            				data-widget-deletebutton="false"
-            				data-widget-fullscreenbutton="false"
-            				data-widget-custombutton="false"
-            				data-widget-collapsed="false"
-            				data-widget-sortable="false"
-
-            				-->
             				<header>
             					<span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
             					<h2>网页内容编辑器</h2>
@@ -436,11 +426,17 @@ $(function(){
         $(this).addClass("disabled");
     });
 
+    // 分类点击赋值
     $("#type_select ul a:not('.parent-item')").click(function(){
-        $("input[name='category']").val($(this).text());
+        $("input[name='category']").val($(this).attr("name"));
         $("#dLabel").html("<i class='fa fa-gear'></i>   "+$(this).text()+"   <span class='caret'></span>");
     });
 
+    // 显示页面设置
+    $("#display_select ul a:not('.parent-item')").click(function(){
+        $("input[name='display']").val($(this).attr("name"));
+        $("#dLabel2").html("<i class='fa fa-gear'></i>   "+$(this).text()+"   <span class='caret'></span>");
+    });
 
 
     var $creat_form = $("#edit_form").validate({

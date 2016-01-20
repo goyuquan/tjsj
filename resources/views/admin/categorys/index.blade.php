@@ -107,17 +107,20 @@
                                             @foreach ( $categorys as $category )
                                                 @if ( $category->parent_id === 1 )
                                                     <li>
-                                                        <a href="javascript:void(0);" class="item" name="{{$category->id}}"><i class="fa fa-circle-o">   </i>{{ $category->name }}</a>
-
-                                                        @foreach ( $categoryss as $category_ )
-                                                            @if ($category_->parent_id === $category->id)
+                                                        <a href="javascript:void(0);" class="item" name="{{$category->id}}">{{ $category->name }}</a>
+                                                        @if ( !App\Category::where('parent_id',$category->id)->get()->isEmpty() )
+                                                            <ul class="dropdown-menu">
+                                                                @foreach ( $categoryss as $category_ )
+                                                                @if ($category_->parent_id === $category->id)
                                                                 <li>
                                                                     <a href="javascript:void(0);" class="item" name="{{$category_->id}}">
-                                                                        {{ $category->name }} <i class="fa fa-chevron-circle-right"></i> {{$category_->name}}
+                                                                        {{$category_->name}}
                                                                     </a>
                                                                 </li>
-                                                            @endif
-                                                        @endforeach
+                                                                @endif
+                                                                @endforeach
+                                                            </ul>
+                                                        @endif
 
                                                     </li>
                                                 @endif

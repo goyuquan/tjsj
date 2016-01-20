@@ -18,9 +18,11 @@ class DisplayController extends Controller
 
     public function index()
     {
-        return "ddddddddddddddd";
         $displays = $displayss = Display::all();
-        return view('admin.displays.index', ["displays" => $displays,"displayss" => $displayss]);
+        return view('admin.displays.index', [
+            "displays" => $displays,
+            "displayss" => $displayss
+        ]);
     }
 
 
@@ -42,7 +44,7 @@ class DisplayController extends Controller
 
         Session()->flash('status', 'display create was successful!');
 
-        return redirect('/admin/displays/');
+        return redirect('/admin/articles/display/');
     }
 
 }

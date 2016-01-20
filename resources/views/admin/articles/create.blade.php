@@ -1,11 +1,7 @@
 @extends('admin.layouts.admin')
 
 @section('style')
-<style>
-    #type_select a{
-        padding: 0.5em 1em;
-    }
-</style>
+
 @endsection
 
 @section('content')
@@ -84,6 +80,7 @@
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="thumbnail">
                                 <input type="hidden" name="category">
+                                <input type="hidden" name="display">
                                 <textarea id="input_content" class="hidden" name="content"></textarea>
 
 
@@ -113,8 +110,8 @@
                                                 <div class="col col-1">
                                                     <a data-toggle="modal" href="#myModal" id="upload_bt0" class="btn btn-warning btn-sm"><i class="fa fa-upload"></i>     缩略图</a>
                                                 </div>
-                                                <section class="col col-3">
-                                                    <div id="type_select" class="dropdown">
+                                                <section class="col col-8">
+                                                    <div id="type_select" class="dropdown inline_block">
                                                         <a id="dLabel" role="button" name="{{App\Category::find(1)->id}}" data-toggle="dropdown" class="btn btn-primary btn-sm" data-target="#" href="javascript:void(0);">
                                                             <i class="fa fa-code-fork"></i>      {{App\Category::find(1)->name}}
                                                             <span class="caret"></span>
@@ -123,18 +120,50 @@
                                                             @foreach ( $categorys as $category )
                                                                 @if ( $category->parent_id === 1 )
                                                                     <li>
-                                                                        <a href="javascript:void(0);" name="{{$category->id}}"><i class="fa fa-circle-o">   </i>{{ $category->name }}</a>
-
-                                                                        @foreach ( $categoryss as $category_ )
-                                                                            @if ($category_->parent_id === $category->id)
+                                                                        <a href="javascript:void(0);" class="item" name="{{$category->id}}">{{ $category->name }}</a>
+                                                                        @if ( !App\Category::where('parent_id',$category->id)->get()->isEmpty() )
+                                                                            <ul class="dropdown-menu">
+                                                                                @foreach ( $categoryss as $category_ )
+                                                                                @if ($category_->parent_id === $category->id)
                                                                                 <li>
-                                                                                    <a href="javascript:void(0);" name="{{$category_->id}}">
-                                                                                        <i class="fa fa-circle-o">  </i>{{ $category->name }} <i class="fa fa-chevron-circle-right"></i> {{$category_->name}}
+                                                                                    <a href="javascript:void(0);" class="item" name="{{$category_->id}}">
+                                                                                        {{$category_->name}}
                                                                                     </a>
                                                                                 </li>
-                                                                            @endif
-                                                                        @endforeach
+                                                                                @endif
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        @endif
 
+                                                                    </li>
+                                                                @endif
+                                                            @endforeach
+
+                                                        </ul>
+                                                    </div>
+                                                    <div id="display_select" class="dropdown inline_block">
+                                                        <a id="dLabel2" role="button" name="{{App\display::find(1)->id}}" data-toggle="dropdown" class="btn btn-primary btn-sm" data-target="#" href="javascript:void(0);">
+                                                            <i class="fa fa-code-fork"></i>      {{App\display::find(1)->name}}
+                                                            <span class="caret"></span>
+                                                        </a>
+                                                        <ul class="dropdown-menu multi-level" role="menu">
+                                                            @foreach ( $displays as $display )
+                                                                @if ( $display->parent_id === 1 )
+                                                                    <li>
+                                                                        <a href="javascript:void(0);" class="item" name="{{$display->id}}">{{ $display->name }}</a>
+                                                                        @if ( !App\Display::where('parent_id',$display->id)->get()->isEmpty() )
+                                                                            <ul class="dropdown-menu">
+                                                                            @foreach ( $displayss as $display_ )
+                                                                                @if ($display_->parent_id === $display->id)
+                                                                                    <li>
+                                                                                        <a href="javascript:void(0);" class="item" name="{{$display_->id}}">
+                                                                                            {{$display_->name}}
+                                                                                        </a>
+                                                                                    </li>
+                                                                                @endif
+                                                                            @endforeach
+                                                                            </ul>
+                                                                        @endif
                                                                     </li>
                                                                 @endif
                                                             @endforeach
@@ -386,7 +415,13 @@ $(function(){
         $("#dLabel").html("<i class='fa fa-gear'></i>   "+$(this).text()+"   <span class='caret'></span>");
     });
 
+    // 显示页面设置
+    $("#display_select ul a:not('.parent-item')").click(function(){
+        $("input[name='display']").val($(this).attr("name"));
+        $("#dLabel2").html("<i class='fa fa-gear'></i>   "+$(this).text()+"   <span class='caret'></span>");
+    });
 
+    $(".dropdown-menu").parent("li").addClass("dropdown-submenu");//给分类列表父元素加dropdown-submenu类
 
     var $creat_form = $("#create_form").validate({//表单验证
 		// Rules for form validation

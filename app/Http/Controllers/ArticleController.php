@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Gate;
 use App\Article;
 use App\Category;
+use App\Display;
 use App\Img;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -82,8 +83,14 @@ class ArticleController extends Controller
 
     public function create(Request $request)
     {
+        $displays = $displayss = Display::all();
         $categorys = $categoryss = Category::all();
-        return view('admin.articles.create',["categorys" => $categorys,"categoryss" => $categoryss]);
+        return view('admin.articles.create',[
+            "categorys" => $categorys,
+            "categoryss" => $categoryss,
+            "displays" => $displays,
+            "displayss" => $displayss
+        ]);
     }
 
 
@@ -110,21 +117,30 @@ class ArticleController extends Controller
             'title' => $request->title,
             'thumbnail' => $request->thumbnail,
             'category_id' => $request->category,
+            'display' => $request->display,
             'content' => $request->content,
             'published_at' => $request->published_at,
         ]);
 
         Session()->flash('status', 'Article create was successful!');
 
-        return redirect('/articles');
+        return redirect('/articles/');
     }
 
 
     public function edit($id)
     {
+        $displays = $displayss = Display::all();
+        $categorys = $categoryss = Category::all();
         $article = Article::find($id);
 
-        return view('admin.articles.edit',['article'=>$article]);
+        return view('admin.articles.edit',[
+            'article'=>$article,
+            "categorys" => $categorys,
+            "categoryss" => $categoryss,
+            "displays" => $displays,
+            "displayss" => $displayss
+        ]);
     }
 
 
@@ -148,14 +164,15 @@ class ArticleController extends Controller
 
         $article = Article::find($id);
         $article->title = $request->title;
-        $article->category = $request->category;
+        $article->category_id = $request->category;
+        $article->display = $request->display;
         $article->content = $request->content;
         $article->published_at = $request->published_at;
         $article->save();
 
         Session()->flash('status', 'Article update was successful!');
 
-        return redirect('/admin/articles');
+        return redirect('/admin/articles/');
     }
 
 
@@ -168,7 +185,7 @@ class ArticleController extends Controller
 
         Article::destroy($id);
 
-        return redirect('/articles');
+        return redirect('/articles/');
     }
 
     public function fileUpload(Request $request)
