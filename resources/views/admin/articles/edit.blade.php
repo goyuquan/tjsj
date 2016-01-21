@@ -1,7 +1,22 @@
 @extends('admin.layouts.admin')
 
 @section('style')
-
+<style media="screen">
+#media_body {
+    min-height: 41px;
+}
+#wid-id-45 {
+    padding:1em 0 0;
+    margin-bottom: 0!important;
+}
+#wid-id-87 {
+    margin-bottom: 1em;
+}
+#summernote2,#summernote2 div[role="content"] {
+    padding: 0;
+    margin-bottom: 0;
+}
+</style>
 @endsection
 
 @section('content')
@@ -69,10 +84,12 @@
             <article class="col-sm-12 col-md-12 col-lg-12">
 
                 <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-76" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
+                <div class="jarviswidget" id="wid-id-87" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
 
                     <!-- widget div-->
                     <div>
+
+                        <div>
 
                         <!-- widget content -->
                         <div class="widget-body no-padding">
@@ -82,10 +99,9 @@
                                 <input type="hidden" name="category" value="{{ $article->category_id }}">
                                 <input type="hidden" name="display" value="{{ $article->display or " " }}">
                                 <textarea id="input_content" class="hidden" name="content">{{ $article->content }}</textarea>
-
+                                <textarea id="media_content" class="hidden" name="media">{{ $article->media }}</textarea>
 
                                         <fieldset>
-
                                             <!-- 标题 -->
                                             <section>
                                                 <label class="input">
@@ -178,7 +194,6 @@
                                                 </section>
                                             </div>
 
-
                                             <!-- <div class="form-group">
                                                 <label>标签 (多选)</label>
                                                 <select multiple style="width:100%" class="select2">
@@ -251,12 +266,59 @@
 
                                 </div>
                                 <!-- end widget content -->
+                            </div>
+                            <!-- end widget div -->
+                        </div>
+                        <!-- end widget -->
+                        <div class="jarviswidget well transparent" id="wid-id-45" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                            <div>
+                                <!-- widget content -->
+                                <div id="media_body" class="widget-body">
+                                    <div class="panel-group smart-accordion-default" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a id="media_bt" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
+                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                        插入媒体、表格、图表
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo" class="panel-collapse collapse">
+                                                <div class="panel-body" style="padding:0;">
+                                                    <div class="jarviswidget jarviswidget-color-blue" id="summernote2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-collapsed="false" data-widget-sortable="false">
+                                                        <!-- widget div-->
+                                                        <div>
+                                                            <!-- widget edit box -->
+                                                            <div class="jarviswidget-editbox"> </div>
+                                                            <div class="widget-body no-padding">
+
+                                                                <div class="web_area">
+                                                                    <?php echo(html_entity_decode($article->media, ENT_QUOTES, 'UTF-8')); ?>
+                                                                 </div>
+
+                                                            </div>
+                                                            <!-- end widget content -->
+
+                                                        </div>
+                                                        <!-- end widget div -->
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- end widget content -->
 
                             </div>
                             <!-- end widget div -->
 
                         </div>
-                        <!-- end widget -->
+
 
                         <div class="jarviswidget jarviswidget-color-blue" id="summernote" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-collapsed="false" data-widget-sortable="false">
             				<header>
@@ -414,7 +476,7 @@ $(function(){
 
     $('#summernote #summernote_save').click(function(){
         $("#summernote").removeClass("jarviswidget-color-blue").addClass("jarviswidget-color-greenDark");
-        $("#input_content").val($(".note-editable").html());
+        $("#input_content").val($("#summernote .note-editable").html());
         $('#summernote #summernote_save').addClass("disabled");
         $('#summernote #summernote_clear').addClass("disabled");
     });
@@ -436,6 +498,13 @@ $(function(){
     $("#display_select ul a:not('.parent-item')").click(function(){
         $("input[name='display']").val($(this).attr("name"));
         $("#dLabel2").html("<i class='fa fa-gear'></i>   "+$(this).text()+"   <span class='caret'></span>");
+    });
+
+    //media收起保存
+    $("#media_bt").click(function(){
+        if (!$(this).hasClass("collapsed")) {
+            $("#media_content").val($("#summernote2 .note-editable").html());
+        }
     });
 
     $(".dropdown-menu").parent("li").addClass("dropdown-submenu");//给分类列表父元素加dropdown-submenu类

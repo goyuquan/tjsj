@@ -6,12 +6,9 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () { return view('welcome'); });
 
-
     Route::get('/articles/category/{category}/page/{pages?}', 'ArticleController@category');
     Route::get('/articles/{id?}', 'ArticleController@index');
     Route::get('/article/{article}', 'ArticleController@show');
-
-
 
     Route::group(['middleware' => 'auth'], function () {
 

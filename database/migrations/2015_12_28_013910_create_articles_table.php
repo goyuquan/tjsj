@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->integer('category_id');
             $table->string('thumbnail',20);
-            $table->text('medias');
+            $table->text('media');
             $table->integer('display',3);
             $table->text('content');
             $table->timestamps();

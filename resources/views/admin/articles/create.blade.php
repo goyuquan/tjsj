@@ -12,6 +12,10 @@
     #wid-id-1g {
         margin-bottom: 1em;
     }
+    #summernote2,#summernote2 div[role="content"] {
+        padding: 0;
+        margin-bottom: 0;
+    }
 </style>
 
 @endsection
@@ -94,6 +98,7 @@
                                 <input type="hidden" name="category">
                                 <input type="hidden" name="display">
                                 <textarea id="input_content" class="hidden" name="content"></textarea>
+                                <textarea id="media_content" class="hidden" name="media"></textarea>
 
 
                                         <fieldset>
@@ -275,55 +280,37 @@
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
-                                                    <i class="fa fa-lg fa-angle-down pull-right"></i>
-                                                    <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                    插入媒体、表格、图表 </a>
+                                                    <a id="media_bt" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
+                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                        插入媒体、表格、图表
+                                                    </a>
                                                 </h4>
                                             </div>
                                             <div id="collapseTwo" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <div class="jarviswidget well" id="wid-id-1">
-
+                                                <div class="panel-body" style="padding:0;">
+                                                    <div class="jarviswidget jarviswidget-color-blue" id="summernote2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-collapsed="false" data-widget-sortable="false">
+                                                        <!-- widget div-->
                                                         <div>
-                                                            <div class="widget-body">
+                                                            <!-- widget edit box -->
+                                                            <div class="jarviswidget-editbox"> </div>
+                                                            <div class="widget-body no-padding">
 
-                                                                <p>
-                                                                    <button id="edit" class="btn btn-primary" onclick="edit()" type="button">
-                                                                        Edit
-                                                                    </button>
-                                                                    <button id="save" class="btn btn-primary" onclick="save()" type="button">
-                                                                        Save
-                                                                    </button>
-                                                                </p>
-                                                                <p></p>
-                                                                <div class="click2edit">
-                                                                    <pre><code class="javascript">var edit = function() { $('.click2edit').summernote() };</code></pre>
-                                                                </div>
-
-                                                                <script>
-                                                                var edit = function() {
-                                                                    $('.click2edit').summernote({
-                                                                        focus : true
-                                                                    });
-                                                                };
-                                                                var save = function() {
-                                                                    $('.click2edit').destroy();
-                                                                };
-                                                                </script>
-
+                                                                <div class="web_area"> </div>
 
                                                             </div>
-                                                                <!-- end widget content -->
+                                                            <!-- end widget content -->
 
+                                                        </div>
+                                                        <!-- end widget div -->
 
-                                                                <!-- end widget div -->
-                                                            </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                                 <!-- end widget content -->
 
@@ -400,14 +387,7 @@
 
 
                     </article>
-                    <!-- END COL -->
-
-
-
         </div>
-
-        <!-- END ROW -->
-
     </section>
     <!-- end widget grid -->
 
@@ -462,6 +442,12 @@ $(function(){
 		tabsize : 2
 	});
 
+    $('#media_edit').summernote({
+        height : 180,
+        focus : false,
+        tabsize : 2
+    });
+
     $("#summernote textarea").attr("name","content");
     $('#summernote #summernote_save').addClass("disabled");
     $('#summernote #summernote_clear').addClass("disabled");
@@ -479,7 +465,7 @@ $(function(){
 
     $('#summernote #summernote_save').click(function(){
         $("#summernote").removeClass("jarviswidget-color-blue").addClass("jarviswidget-color-greenDark");
-        $("#input_content").val($(".note-editable").html());
+        $("#input_content").val($("#summernote .note-editable").html());
         $('#summernote #summernote_save').addClass("disabled");
         $('#summernote #summernote_clear').addClass("disabled");
     });
@@ -501,6 +487,13 @@ $(function(){
     $("#display_select ul a:not('.parent-item')").click(function(){
         $("input[name='display']").val($(this).attr("name"));
         $("#dLabel2").html("<i class='fa fa-gear'></i>   "+$(this).text()+"   <span class='caret'></span>");
+    });
+
+    //media收起保存
+    $("#media_bt").click(function(){
+        if (!$(this).hasClass("collapsed")) {
+            $("#media_content").val($("#summernote2 .note-editable").html());
+        }
     });
 
     $(".dropdown-menu").parent("li").addClass("dropdown-submenu");//给分类列表父元素加dropdown-submenu类
@@ -544,6 +537,7 @@ $(function(){
             return false;
         }
     });
+
 
 });
 </script>

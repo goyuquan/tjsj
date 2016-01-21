@@ -118,6 +118,7 @@ class ArticleController extends Controller
             'thumbnail' => $request->thumbnail,
             'category_id' => $request->category,
             'display' => $request->display,
+            'media' => $request->media,
             'content' => $request->content,
             'published_at' => $request->published_at,
         ]);
